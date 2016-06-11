@@ -1,12 +1,15 @@
-package ca.uqac.viallet.benet.sma_carpool;
+package ca.uqac.viallet.benet.sma_carpool.gui;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
+
+import ca.uqac.viallet.benet.sma_carpool.R;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -105,7 +108,16 @@ public class MainMenu extends AppCompatActivity {
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
-        findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
+        findViewById(R.id.find).setOnTouchListener(mDelayHideTouchListener);
+        findViewById(R.id.propose).setOnTouchListener(mDelayHideTouchListener);
+
+        findViewById(R.id.find).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myIntent = new Intent(MainMenu.this, SearchActivity.class);
+                startActivity(myIntent);
+            }
+        });
     }
 
     @Override
