@@ -1,5 +1,6 @@
 package ca.uqac.viallet.benet.sma_carpool.gui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -32,7 +33,7 @@ public class SearchActivity extends AppCompatActivity {
     private Vector departure_coord = new Vector(2);
     private Vector arrival_coord = new Vector(2);
     private int step = 1;
-    private CharSequence confirmedResume;
+    private CharSequence confirmedResume = new String("Résumé");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,14 +84,20 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
-        Button confirmButton = (Button) findViewById(R.id.confirm_button);
+        final Button confirmButton = (Button) findViewById(R.id.confirm_button);
         assert confirmButton != null;
         confirmButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                confirmedResume = ((TextView) findViewById(R.id.resume)).getText();
-                step++;
+                CharSequence currentText = ((TextView) findViewById(R.id.resume)).getText();
+                Log.i("txt:s", "curr" + currentText);
+                Log.i("txt:s", "conf" + confirmedResume);
+                if(currentText.toString().compareToIgnoreCase(confirmedResume.toString()) != 0) {
+                    confirmedResume = currentText;
+                    ((TextView) findViewById(R.id.instructions)).setText("Choisissez votre destination");
+                    step++;
+                }
             }
         });
 
@@ -101,7 +108,8 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (step == 3) {
-                    //TODO: next activity
+                    Intent myIntent = new Intent(SearchActivity.this, SearchResultActivity.class);
+                    startActivity(myIntent);
                 }
             }
         });
@@ -113,7 +121,8 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 step = 1;
-                confirmedResume = "";
+                confirmedResume = "Résumé";
+                ((TextView) findViewById(R.id.instructions)).setText("Choisissez votre position actuelle");
             }
         });
     }
