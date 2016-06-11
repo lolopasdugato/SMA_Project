@@ -22,6 +22,10 @@
         <activity
             android:name=".gui.SearchActivity"
             android:label="@string/title_activity_search"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".gui.SearchResultActivity"
+            android:label="@string/title_activity_search_result"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
