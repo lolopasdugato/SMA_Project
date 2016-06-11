@@ -1,6 +1,12 @@
 <resources>
     <string name="app_name">SMA_CarPool</string>
 
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="title_activity_search">Search</string>
+    <string name="instructions">Choisissez votre position actuelle</string>
+    <string name="resume">Résumé</string>
+    <string name="confirmer">Confirmer</string>
+    <string name="chercher_covoiturage">Chercher covoiturage</string>
+    <string name="proposer_covoiturage">Proposer covoiturage</string>
+    <string name="reset">Reset</string>
+    <string name="accepter">Accepter</string>
 </resources>
