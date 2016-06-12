@@ -136,7 +136,7 @@ public class  MainMenu extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 SEARCHING = true;
-                Intent myIntent = new Intent(MainMenu.this, RideActivity.class);
+                Intent myIntent = new Intent(MainMenu.this, SearchChoicesActivity.class);
                 startActivity(myIntent);
             }
         });
