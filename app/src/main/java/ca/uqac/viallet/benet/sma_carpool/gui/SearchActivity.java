@@ -20,6 +20,8 @@ import android.widget.Toast;
 import java.util.Vector;
 
 import ca.uqac.viallet.benet.sma_carpool.R;
+import ca.uqac.viallet.benet.sma_carpool.agent.CarpoolFindAgent;
+import jade.core.Agent;
 
 public class SearchActivity extends AppCompatActivity {
 
@@ -108,6 +110,7 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (step == 3) {
+                    Log.i("MAP-","Trcu");
                     Intent myIntent = new Intent(SearchActivity.this, SearchResultActivity.class);
                     startActivity(myIntent);
                 }

@@ -92,7 +92,7 @@ public class CarpoolOfferAgent extends Agent {
      sent back.
      */
     private class OfferRequestsServer extends CyclicBehaviour {
-        public void action() {
+        public void action() {/*
             MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.CFP);
             ACLMessage msg = myAgent.receive(mt);
             if (msg != null) {
@@ -100,7 +100,7 @@ public class CarpoolOfferAgent extends Agent {
                 String title = msg.getContent();
                 ACLMessage reply = msg.createReply();
 
-                Integer price = (Integer) offers.get(title);
+       //         Integer price = (Integer) offers.get(title);
                 if (price != null) {
                     // The requested book is available for sale. Reply with the price
                     reply.setPerformative(ACLMessage.PROPOSE);
@@ -115,7 +115,7 @@ public class CarpoolOfferAgent extends Agent {
             }
             else {
                 block();
-            }
+            } */
         }
     }  // End of inner class OfferRequestsServer
 
@@ -129,7 +129,7 @@ public class CarpoolOfferAgent extends Agent {
      */
     private class BookOrdersServer extends CyclicBehaviour {
         public void action() {
-            MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.ACCEPT_PROPOSAL);
+        /*    MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.ACCEPT_PROPOSAL);
             ACLMessage msg = myAgent.receive(mt);
             if (msg != null) {
                 // ACCEPT_PROPOSAL Message received. Process it
@@ -150,8 +150,7 @@ public class CarpoolOfferAgent extends Agent {
             }
             else {
                 block();
-            }
+            } */
         }
     }  // End of inner class OfferRequestsServer
 }
-

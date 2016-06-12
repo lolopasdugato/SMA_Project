@@ -29,7 +29,7 @@ public class CarpoolFindAgent extends Agent {
         Log.i("FINDAG", "Find-agent "+getAID().getName()+" is ready.");
         // Get the coordinates as a start-up argument
         Object[] args = getArguments();
-        if (args != null && args.length > 0) {
+        if (args != null && args.length == 4) {
             trip = new Trip(new Coordinate((int) args[0], (int) args[1]),
                     new Coordinate((int) args[2], (int) args[3]));
 
