@@ -108,7 +108,7 @@ public class RideActivity extends AppCompatActivity {
                 if (step == 3) {
                     if(MainMenu.SEARCHING) {
                         Container.getInstance().startCarpool("search" + MainMenu.findAgents.size(), CarpoolFindAgent.class.getName()
-                                , new Object[] {arrival_coord.x,arrival_coord.y, departure_coord.x,departure_coord.y}, MainMenu.MainMenuLink);
+                                , new Object[] {departure_coord.x,departure_coord.y, arrival_coord.x,arrival_coord.y}, MainMenu.MainMenuLink);
                         Intent myIntent = new Intent(RideActivity.this, SearchResultActivity.class);
                         startActivity(myIntent);
                     } else {
