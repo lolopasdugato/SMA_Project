@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="ca.uqac.viallet.benet.sma_carpool.gui.ProposalRestrictionActivity"
+    tools:showIn="@layout/activity_proposal_restriction">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/accepter"
+        android:id="@+id/accept_button"
+        android:layout_marginBottom="104dp"
+        android:singleLine="false"
+        android:background="#9fd47c"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/restrictions"
+        android:id="@+id/restrictions"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:ems="10"
+        android:id="@+id/deviation"
+        android:layout_marginTop="52dp"
+        android:layout_below="@+id/restrictions"
+        android:layout_alignParentEnd="true"
+        android:autoText="false"
+        android:text="@string/_30"
+        android:layout_toEndOf="@+id/restrictions" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:ems="10"
+        android:id="@+id/price"
+        android:layout_below="@+id/deviation"
+        android:layout_alignEnd="@+id/deviation"
+        android:layout_alignStart="@+id/deviation"
+        android:text="@string/_20" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/d_viation_maximum"
+        android:id="@+id/deviationLabel"
+        android:layout_alignTop="@+id/deviation"
+        android:layout_alignParentStart="true"
+        android:layout_alignBottom="@+id/deviation"
+        android:layout_margin="5dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/prix"
+        android:id="@+id/priceLabel"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_alignTop="@+id/price"
+        android:layout_alignEnd="@+id/deviationLabel" />
+
+</RelativeLayout>

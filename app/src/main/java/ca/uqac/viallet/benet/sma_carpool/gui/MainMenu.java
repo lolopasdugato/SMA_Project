@@ -11,7 +11,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -26,8 +25,6 @@ import jade.core.MicroRuntime;
 import jade.core.Profile;
 import jade.util.Logger;
 import jade.util.leap.Properties;
-import jade.wrapper.AgentController;
-import jade.wrapper.ControllerException;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -45,6 +42,8 @@ public class  MainMenu extends AppCompatActivity {
      * user interaction before hiding the system UI.
      */
     private static final int AUTO_HIDE_DELAY_MILLIS = 3000;
+
+    public static boolean SEARCHING = true;
 
     /**
      * Some older devices needs a small delay between UI widget updates
@@ -137,7 +136,17 @@ public class  MainMenu extends AppCompatActivity {
         findViewById(R.id.find).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent myIntent = new Intent(MainMenu.this, SearchActivity.class);
+                SEARCHING = true;
+                Intent myIntent = new Intent(MainMenu.this, RideActivity.class);
+                startActivity(myIntent);
+            }
+        });
+
+        findViewById(R.id.propose).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SEARCHING = false;
+                Intent myIntent = new Intent(MainMenu.this, ProposalChoicesActivity.class);
                 startActivity(myIntent);
             }
         });

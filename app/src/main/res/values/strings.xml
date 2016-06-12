@@ -10,4 +10,15 @@
     <string name="reset">Reset</string>
     <string name="accepter">Accepter</string>
     <string name="title_activity_search_result">SearchResultActivity</string>
+    <string name="title_activity_proposal_restriction">ProposalRestrictionActivity</string>
+    <string name="title_activity_proposal_choices">ProposalChoicesActivity</string>
+    <string name="nouvelle_offre">Nouvelle offre</string>
+    <string name="modifier_une_offre">Vérifier une offre</string>
+    <string name="restrictions">Restrictions</string>
+    <string name="_30">30</string>
+    <string name="_20">20</string>
+    <string name="d_viation_maximum">Déviation maximum :</string>
+    <string name="prix">Prix :</string>
+    <string name="title_activity_proposal_check">ProposalCheckActivity</string>
+    <string name="resume_des_offres">Résumé des offres</string>
 </resources>
