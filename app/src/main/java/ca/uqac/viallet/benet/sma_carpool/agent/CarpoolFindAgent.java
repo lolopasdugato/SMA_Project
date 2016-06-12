@@ -15,8 +15,11 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.domain.FIPAException;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
+import jade.util.Logger;
 
 public class CarpoolFindAgent extends Agent {
+
+    private Logger logger = Logger.getJADELogger(this.getClass().getName());
 
     // Desired route
     private Trip trip;

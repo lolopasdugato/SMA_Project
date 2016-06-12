@@ -18,6 +18,8 @@ import android.view.View;
 import java.util.logging.Level;
 
 import ca.uqac.viallet.benet.sma_carpool.R;
+import ca.uqac.viallet.benet.sma_carpool.agent.CarpoolFindAgent;
+import ca.uqac.viallet.benet.sma_carpool.container.Container;
 import jade.android.AndroidHelper;
 import jade.android.MicroRuntimeService;
 import jade.android.MicroRuntimeServiceBinder;
@@ -104,10 +106,7 @@ public class  MainMenu extends AppCompatActivity {
         }
     };
 
-    // Jade attributes
     private Logger logger = Logger.getJADELogger(this.getClass().getName());
-    private MicroRuntimeServiceBinder microRuntimeServiceBinder;
-    private ServiceConnection serviceConnection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -144,11 +143,14 @@ public class  MainMenu extends AppCompatActivity {
 
         // Start jade environment
         try {
-            SharedPreferences settings = getSharedPreferences(
-                    "jadeChatPrefsFile", 0);
+           /* SharedPreferences settings = getSharedPreferences(
+                    "jadeCarpoolPrefsFile", 0);
             String host = settings.getString("defaultHost", "");
-            String port = settings.getString("defaultPort", "");
-            startCarpool("abcd" ,host, port);
+            String port = settings.getString("defaultPort", "");*/
+            String host = "10.0.2.2";
+            String port = "1099";
+            Container container = Container.getInstance();
+            container.startCarpool("abcd", host, port, this);
         } catch (Exception ex) {
             logger.log(Level.SEVERE, "Unexpected exception creating chat agent!");
         }
@@ -213,113 +215,9 @@ public class  MainMenu extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_CANCELED) {
             // The chat activity was closed.
+            Container container = Container.getInstance();
             logger.log(Level.INFO, "Stopping Jade...");
-            microRuntimeServiceBinder
-                    .stopAgentContainer(new RuntimeCallback<Void>() {
-                        @Override
-                        public void onSuccess(Void thisIsNull) {
-                        }
-
-                        @Override
-                        public void onFailure(Throwable throwable) {
-                            logger.log(Level.SEVERE, "Failed to stop the agents");
-                            //agentStartupCallback.onFailure(throwable);
-                        }
-                    });
+            container.stopCarpool();
         }
     }
-
-    public void startCarpool(final String nickname, final String host,
-                          final String port/*,
-                          final RuntimeCallback<AgentController> agentStartupCallback*/) {
-        logger.log(Level.INFO, "Starting environment");
-        final Properties profile = new Properties();
-        profile.setProperty(Profile.MAIN_HOST, host);
-        profile.setProperty(Profile.MAIN_PORT, port);
-        profile.setProperty(Profile.MAIN, Boolean.FALSE.toString());
-        profile.setProperty(Profile.JVM, Profile.ANDROID);
-
-        if (AndroidHelper.isEmulator()) {
-            // Emulator: this is needed to work with emulated devices
-            profile.setProperty(Profile.LOCAL_HOST, AndroidHelper.LOOPBACK);
-        } else {
-            profile.setProperty(Profile.LOCAL_HOST,
-                    AndroidHelper.getLocalIPAddress());
-        }
-        // Emulator: this is not really needed on a real device
-        profile.setProperty(Profile.LOCAL_PORT, "2000");
-
-        if (microRuntimeServiceBinder == null) {
-            serviceConnection = new ServiceConnection() {
-                public void onServiceConnected(ComponentName className,
-                                               IBinder service) {
-                    microRuntimeServiceBinder = (MicroRuntimeServiceBinder) service;
-                    logger.log(Level.INFO, "Gateway successfully bound to MicroRuntimeService");
-                    startContainer(nickname, profile/*, agentStartupCallback*/);
-                };
-
-                public void onServiceDisconnected(ComponentName className) {
-                    microRuntimeServiceBinder = null;
-                    logger.log(Level.INFO, "Gateway unbound from MicroRuntimeService");
-                }
-            };
-            logger.log(Level.INFO, "Binding Gateway to MicroRuntimeService...");
-            bindService(new Intent(getApplicationContext(),
-                            MicroRuntimeService.class), serviceConnection,
-                    Context.BIND_AUTO_CREATE);
-        } else {
-            logger.log(Level.INFO, "MicroRumtimeGateway already binded to service");
-            startContainer(nickname, profile/*, agentStartupCallback*/);
-        }
-    }
-
-    private void startContainer(final String nickname, Properties profile/*,
-                                final RuntimeCallback<AgentController> agentStartupCallback*/) {
-        if (!MicroRuntime.isRunning()) {
-            microRuntimeServiceBinder.startAgentContainer(profile,
-                    new RuntimeCallback<Void>() {
-                        @Override
-                        public void onSuccess(Void thisIsNull) {
-                            logger.log(Level.INFO, "Successfully start of the container...");
-                            startAgent(nickname/*, agentStartupCallback*/);
-                        }
-
-                        @Override
-                        public void onFailure(Throwable throwable) {
-                            logger.log(Level.SEVERE, "Failed to start the container...");
-                        }
-                    });
-        } else {
-            startAgent(nickname/*, agentStartupCallback*/);
-        }
-    }
-
-    private void startAgent(final String nickname/*,
-                            final RuntimeCallback<AgentController> agentStartupCallback*/) {
- /*       microRuntimeServiceBinder.startAgent(nickname,
-                ChatClientAgent.class.getName(),
-                new Object[] { getApplicationContext() },
-                new RuntimeCallback<Void>() {
-                    @Override
-                    public void onSuccess(Void thisIsNull) {
-                        logger.log(Level.INFO, "Successfully start of the "
-                                + ChatClientAgent.class.getName() + "...");
-                        try {
-                            agentStartupCallback.onSuccess(MicroRuntime
-                                    .getAgent(nickname));
-                        } catch (ControllerException e) {
-                            // Should never happen
-                            agentStartupCallback.onFailure(e);
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Throwable throwable) {
-                        logger.log(Level.SEVERE, "Failed to start the "
-                                + ChatClientAgent.class.getName() + "...");
-                        agentStartupCallback.onFailure(throwable);
-                    }
-                });*/
-    }
-
 }
