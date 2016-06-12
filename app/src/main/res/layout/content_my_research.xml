@@ -15,7 +15,7 @@
     <GridView
         android:layout_width="fill_parent"
         android:layout_height="200dp"
-        android:id="@+id/gridView"
+        android:id="@+id/researchesGrid"
         android:layout_below="@+id/myResearchTitle"
         android:layout_alignParentStart="true" />
 
@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:text="@string/mes_r_sultats"
         android:id="@+id/myResults"
-        android:layout_below="@+id/gridView"
+        android:layout_below="@+id/researchesGrid"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="62dp" />
 </RelativeLayout>

@@ -5,6 +5,7 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
+import ca.uqac.viallet.benet.sma_carpool.gui.MainMenu;
 import ca.uqac.viallet.benet.sma_carpool.utils.Coordinate;
 import ca.uqac.viallet.benet.sma_carpool.utils.Trip;
 import jade.core.Agent;
@@ -36,6 +37,8 @@ public class CarpoolOfferAgent extends Agent {
     protected void setup() {
         // Create the catalogue
         offers = new ArrayList<Trip>();
+
+        MainMenu.offerAgent = this;
 
         // Register the book-selling service in the yellow pages
         DFAgentDescription dfd = new DFAgentDescription();

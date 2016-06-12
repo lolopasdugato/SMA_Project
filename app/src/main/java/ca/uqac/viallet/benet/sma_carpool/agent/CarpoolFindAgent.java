@@ -3,6 +3,7 @@ package ca.uqac.viallet.benet.sma_carpool.agent;
 import android.graphics.Point;
 import android.util.Log;
 
+import ca.uqac.viallet.benet.sma_carpool.gui.MainMenu;
 import ca.uqac.viallet.benet.sma_carpool.utils.Coordinate;
 import ca.uqac.viallet.benet.sma_carpool.utils.Trip;
 import jade.core.AID;
@@ -36,6 +37,7 @@ public class CarpoolFindAgent extends Agent {
             trip = new Trip(new Coordinate((int) args[0], (int) args[1]),
                     new Coordinate((int) args[2], (int) args[3]));
 
+            MainMenu.findAgents.add(this);
 
             Log.i("FINDAG", "Trip : " + trip.toString());
 

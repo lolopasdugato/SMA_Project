@@ -50,8 +50,10 @@ public class  MainMenu extends AppCompatActivity {
     public static boolean SEARCHING = true;
 
     // agent list
-    public ArrayList<CarpoolFindAgent> findAgents = new ArrayList<CarpoolFindAgent>();
-    public CarpoolOfferAgent offerAgent;
+    public static ArrayList<CarpoolFindAgent> findAgents = new ArrayList<CarpoolFindAgent>();
+    public static CarpoolOfferAgent offerAgent;
+
+    public static MainMenu MainMenuLink;
 
     /**
      * Some older devices needs a small delay between UI widget updates
@@ -117,6 +119,8 @@ public class  MainMenu extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        MainMenuLink = this;
+
         setContentView(R.layout.activity_main_menu);
 
         mVisible = true;
@@ -163,8 +167,8 @@ public class  MainMenu extends AppCompatActivity {
             String host = settings.getString("defaultHost", "");
             String port = settings.getString("defaultPort", "");*/
             Container container = Container.getInstance();
-            container.startCarpool("find", CarpoolFindAgent.class.getName(), new Object[] {0,1,2,3}, this);
-            container.startCarpool("offer", CarpoolOfferAgent.class.getName(), new Object[] {0}, this);
+            // container.startCarpool("find", CarpoolFindAgent.class.getName(), new Object[] {0,1,2,3}, this);
+            container.startCarpool("offer", CarpoolOfferAgent.class.getName(), new Object[] {}, this);
         } catch (Exception ex) {
             logger.log(Level.SEVERE, "Unexpected exception creating chat agent!");
         }

@@ -6,9 +6,16 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.GridView;
+
+import java.util.ArrayList;
 
 import ca.uqac.viallet.benet.sma_carpool.R;
+import ca.uqac.viallet.benet.sma_carpool.agent.CarpoolFindAgent;
 
 public class MyResearchActivity extends AppCompatActivity {
 
@@ -34,6 +41,29 @@ public class MyResearchActivity extends AppCompatActivity {
                 //TODO: only if one item is selected
                 Intent myIntent = new Intent(MyResearchActivity.this, SearchResultActivity.class);
                 startActivity(myIntent);
+            }
+        });
+
+        ArrayList<String> researches = new ArrayList<String>();
+
+        //TODO: fill researches
+        for (CarpoolFindAgent fAgent : MainMenu.findAgents) {
+            researches.add(fAgent.toString());
+        }
+        Log.i("MyResearchActivity", "researches size: " + researches.size());
+
+        final GridView gridView = (GridView) findViewById(R.id.researchesGrid);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, researches);
+
+        assert gridView != null;
+        gridView.setAdapter(adapter);
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
             }
         });
     }
