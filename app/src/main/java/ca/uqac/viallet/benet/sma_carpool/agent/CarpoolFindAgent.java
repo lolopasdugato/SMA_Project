@@ -3,6 +3,9 @@ package ca.uqac.viallet.benet.sma_carpool.agent;
 import android.graphics.Point;
 import android.util.Log;
 
+import java.util.Arrays;
+
+import ca.uqac.viallet.benet.sma_carpool.gui.MainMenu;
 import ca.uqac.viallet.benet.sma_carpool.utils.Coordinate;
 import ca.uqac.viallet.benet.sma_carpool.utils.Trip;
 import jade.core.AID;
@@ -27,6 +30,13 @@ public class CarpoolFindAgent extends Agent {
     // The list of known carpool offer agents
     private AID[] offerAgents;
 
+    @Override
+    public String toString() {
+        return "CarpoolFindAgent{" +
+                "trip=" + trip +
+                '}';
+    }
+
     // Agent initialization
     protected void setup() {
         Log.i("FINDAG", "Find-agent "+getAID().getName()+" is ready.");
@@ -36,6 +46,7 @@ public class CarpoolFindAgent extends Agent {
             trip = new Trip(new Coordinate((int) args[0], (int) args[1]),
                     new Coordinate((int) args[2], (int) args[3]));
 
+            MainMenu.findAgents.add(this);
 
             Log.i("FINDAG", "Trip : " + trip.toString());
 

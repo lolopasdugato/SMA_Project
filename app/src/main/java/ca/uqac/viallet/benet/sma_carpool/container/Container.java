@@ -90,7 +90,7 @@ public class Container {
                     Context.BIND_AUTO_CREATE);
         } else {
             logger.log(Level.INFO, "MicroRumtimeGateway already binded to service");
-            startContainer(nickname, agentClass, args, profile);
+            startAgent(nickname, agentClass, args);
         }
     }
 
