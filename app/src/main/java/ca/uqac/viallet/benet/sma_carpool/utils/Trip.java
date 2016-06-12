@@ -50,7 +50,7 @@ public class Trip {
     }
 
     public float detourLength(Coordinate coord1, Coordinate coord2) {
-        float min_length = routeLength() * detour /100;
+        float min_length = routeLength() * (detour+100)/100;
         int min_i = 0;
         int min_j = 0;
         ArrayList<Coordinate> routeCopy = new ArrayList<Coordinate>(route);
@@ -76,7 +76,7 @@ public class Trip {
     }
 
     public boolean detourAcceptable(Coordinate coord1, Coordinate coord2) {
-        float min_length = routeLength() * detour/100;
+        float min_length = routeLength() * (detour+100)/100;
 
         ArrayList<Coordinate> routeCopy = new ArrayList<Coordinate>(route);
 
