@@ -14,10 +14,12 @@ import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
 
+import java.util.ArrayList;
 import java.util.logging.Level;
 
 import ca.uqac.viallet.benet.sma_carpool.R;
 import ca.uqac.viallet.benet.sma_carpool.agent.CarpoolFindAgent;
+import ca.uqac.viallet.benet.sma_carpool.agent.CarpoolOfferAgent;
 import ca.uqac.viallet.benet.sma_carpool.container.Container;
 import jade.android.AndroidHelper;
 import jade.android.MicroRuntimeService;
@@ -46,6 +48,10 @@ public class  MainMenu extends AppCompatActivity {
     private static final int AUTO_HIDE_DELAY_MILLIS = 3000;
 
     public static boolean SEARCHING = true;
+
+    // agent list
+    public ArrayList<CarpoolFindAgent> findAgents = new ArrayList<CarpoolFindAgent>();
+    public CarpoolOfferAgent offerAgent;
 
     /**
      * Some older devices needs a small delay between UI widget updates
@@ -156,10 +162,9 @@ public class  MainMenu extends AppCompatActivity {
                     "jadeCarpoolPrefsFile", 0);
             String host = settings.getString("defaultHost", "");
             String port = settings.getString("defaultPort", "");*/
-            String host = "10.0.2.2";
-            String port = "1099";
             Container container = Container.getInstance();
-            container.startCarpool("abcd", host, port, this);
+            container.startCarpool("find", CarpoolFindAgent.class.getName(), new Object[] {0,1,2,3}, this);
+            container.startCarpool("offer", CarpoolOfferAgent.class.getName(), new Object[] {0}, this);
         } catch (Exception ex) {
             logger.log(Level.SEVERE, "Unexpected exception creating chat agent!");
         }

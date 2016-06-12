@@ -104,7 +104,7 @@ public class CarpoolOfferAgent extends Agent {
 
                 ACLMessage reply = msg.createReply();
 
-                Integer price = (Integer) offers.get(title);
+               /* Integer price = (Integer) offers.get(title);
                 if (price != null) {
                     // The requested book is available for sale. Reply with the price
                     reply.setPerformative(ACLMessage.PROPOSE);
@@ -115,11 +115,11 @@ public class CarpoolOfferAgent extends Agent {
                     reply.setPerformative(ACLMessage.REFUSE);
                     reply.setContent("not-available");
                 }
-                myAgent.send(reply);
+                myAgent.send(reply);*/
             }
             else {
                 block();
-            } */
+            }
         }
     }  // End of inner class OfferRequestsServer
 

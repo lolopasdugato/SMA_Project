@@ -11,6 +11,7 @@ import android.os.IBinder;
 import java.util.logging.Level;
 
 import ca.uqac.viallet.benet.sma_carpool.agent.CarpoolFindAgent;
+import ca.uqac.viallet.benet.sma_carpool.agent.CarpoolOfferAgent;
 import jade.android.AndroidHelper;
 import jade.android.MicroRuntimeService;
 import jade.android.MicroRuntimeServiceBinder;
@@ -32,6 +33,9 @@ public class Container {
     private MicroRuntimeServiceBinder microRuntimeServiceBinder;
     private ServiceConnection serviceConnection;
 
+    private String host = "10.0.2.2";
+    private String port = "1099";
+
     private static Container instance;
 
     private Container() {}
@@ -44,8 +48,9 @@ public class Container {
     }
 
 
-    public void startCarpool(final String nickname, final String host,
-                             final String port,
+    public void startCarpool(final String nickname,
+                             final String agentClass,
+                             final Object[] args,
                              Activity app) {
         logger.log(Level.INFO, "Starting environment");
         final Properties profile = new Properties();
@@ -71,7 +76,7 @@ public class Container {
                                                IBinder service) {
                     microRuntimeServiceBinder = (MicroRuntimeServiceBinder) service;
                     logger.log(Level.INFO, "Gateway successfully bound to MicroRuntimeService");
-                    startContainer(nickname, profile);
+                    startContainer(nickname, agentClass, args, profile);
                 };
 
                 public void onServiceDisconnected(ComponentName className) {
@@ -85,7 +90,7 @@ public class Container {
                     Context.BIND_AUTO_CREATE);
         } else {
             logger.log(Level.INFO, "MicroRumtimeGateway already binded to service");
-            startContainer(nickname, profile);
+            startContainer(nickname, agentClass, args, profile);
         }
     }
 
@@ -105,13 +110,15 @@ public class Container {
     }
 
 
-    public void startContainer(final String nickname, Properties profile) {
+    public void startContainer(final String nickname, final String agentClass, final Object[] args, Properties profile) {
         if (!MicroRuntime.isRunning()) {
             microRuntimeServiceBinder.startAgentContainer(profile,
                     new RuntimeCallback<Void>() {
                         @Override
                         public void onSuccess(Void thisIsNull) {
                             logger.log(Level.INFO, "Successfully start of the container...");
+                            startAgent("find", CarpoolFindAgent.class.getName(), new Object[] {0,1,2,3});
+                            startAgent("offer", CarpoolOfferAgent.class.getName(), new Object[] {0});
                         }
 
                         @Override
@@ -123,7 +130,7 @@ public class Container {
         }
     }
 
-    public void startAgent(final String nickname, String agentClass, Object[] args) {
+    public void startAgent(final String nickname, final String agentClass, final Object[] args) {
         microRuntimeServiceBinder.startAgent(nickname,
                 agentClass,
                 args,
