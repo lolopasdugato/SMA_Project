@@ -21,4 +21,10 @@
     <string name="prix">Prix :</string>
     <string name="title_activity_proposal_check">ProposalCheckActivity</string>
     <string name="resume_des_offres">Résumé des offres</string>
+    <string name="r_sultats">Résultats</string>
+    <string name="title_activity_search_choices">SearchChoicesActivity</string>
+    <string name="mes_recherches">Mes recherches</string>
+    <string name="nouvelles_recherche">Nouvelles recherche</string>
+    <string name="title_activity_my_research">MyResearchActivity</string>
+    <string name="mes_r_sultats">Mes résultats</string>
 </resources>

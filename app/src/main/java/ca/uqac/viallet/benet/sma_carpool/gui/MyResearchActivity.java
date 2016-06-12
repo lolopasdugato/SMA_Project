@@ -7,19 +7,15 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.GridView;
 
 import ca.uqac.viallet.benet.sma_carpool.R;
 
-public class SearchResultActivity extends AppCompatActivity {
-
-    String[] results;
+public class MyResearchActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_result);
+        setContentView(R.layout.activity_my_research);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -32,28 +28,11 @@ public class SearchResultActivity extends AppCompatActivity {
             }
         });
 
-        //TODO: fill "results"
-
-        final GridView gridView = (GridView) findViewById(R.id.map);
-
-        /* ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, results);
-
-        assert gridView != null;
-        gridView.setAdapter(adapter);
-        */
-
-        findViewById(R.id.accept_button).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.myResults).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: accept the result selected
-            }
-        });
-
-        findViewById(R.id.myResearch).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent myIntent = new Intent(SearchResultActivity.this, MyResearchActivity.class);
+                //TODO: only if one item is selected
+                Intent myIntent = new Intent(MyResearchActivity.this, SearchResultActivity.class);
                 startActivity(myIntent);
             }
         });

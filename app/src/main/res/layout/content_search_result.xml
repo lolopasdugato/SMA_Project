@@ -24,8 +24,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Résultats"
+        android:text="@string/r_sultats"
         android:id="@+id/titleSRA"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:text="@string/accepter"
+        android:id="@+id/accept_button"
+        android:background="#b3ee99"
+        android:layout_below="@+id/search_result"
+        android:layout_toEndOf="@+id/titleSRA"
+        android:layout_marginRight="5dp" />
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:text="@string/mes_recherches"
+        android:id="@+id/myResearch"
+        android:layout_alignTop="@+id/accept_button"
+        android:layout_toStartOf="@+id/titleSRA"
+        android:layout_marginRight="5dp" />
 </RelativeLayout>
