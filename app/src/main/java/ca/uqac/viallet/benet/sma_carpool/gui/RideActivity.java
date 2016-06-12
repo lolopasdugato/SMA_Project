@@ -19,6 +19,7 @@ import java.util.Vector;
 import ca.uqac.viallet.benet.sma_carpool.R;
 import ca.uqac.viallet.benet.sma_carpool.agent.CarpoolFindAgent;
 import ca.uqac.viallet.benet.sma_carpool.container.Container;
+import ca.uqac.viallet.benet.sma_carpool.utils.Coordinate;
 
 public class RideActivity extends AppCompatActivity {
 
@@ -29,8 +30,8 @@ public class RideActivity extends AppCompatActivity {
             "P", "Q", "R", "S", "T",
             "U", "V", "W", "X", "Y", "Z"};
 
-    private Vector departure_coord = new Vector(2);
-    private Vector arrival_coord = new Vector(2);
+    private Coordinate departure_coord;
+    private Coordinate arrival_coord;
     private int step = 1;
     private CharSequence confirmedResume = new String("Résumé");
 
@@ -71,13 +72,11 @@ public class RideActivity extends AppCompatActivity {
                 Log.i("MAP-", "Position: " + i + "," + j);
                 TextView resume = (TextView) findViewById(R.id.resume);
                 if (step == 1) {
-                    departure_coord.add(i);
-                    departure_coord.add(j);
+                    departure_coord = new Coordinate(i, j);
                     resume.setText("Départ de " + ((TextView) v).getText() + "(" + i + "," + j + ")");
                 }
                 else if (step == 2) {
-                    arrival_coord.add(i);
-                    arrival_coord.add(j);
+                    arrival_coord = new Coordinate(i, j);
                     resume.setText(confirmedResume + "\nArrivée à " + ((TextView) v).getText() + "(" + i + "," + j + ")");
                 }
             }
@@ -109,7 +108,7 @@ public class RideActivity extends AppCompatActivity {
                 if (step == 3) {
                     if(MainMenu.SEARCHING) {
                         Container.getInstance().startAgent("search", CarpoolFindAgent.class.getName()
-                                , new Object[] {arrival_coord.get(0),arrival_coord.get(1), departure_coord.get(0),departure_coord.get(1)});
+                                , new Object[] {arrival_coord.x,arrival_coord.y, departure_coord.x,departure_coord.y});
                         Intent myIntent = new Intent(RideActivity.this, SearchResultActivity.class);
                         startActivity(myIntent);
                     } else {
