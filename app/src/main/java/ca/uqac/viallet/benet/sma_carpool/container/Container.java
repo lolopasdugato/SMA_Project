@@ -117,8 +117,7 @@ public class Container {
                         @Override
                         public void onSuccess(Void thisIsNull) {
                             logger.log(Level.INFO, "Successfully start of the container...");
-                            startAgent("find", CarpoolFindAgent.class.getName(), new Object[] {0,1,2,3});
-                            startAgent("offer", CarpoolOfferAgent.class.getName(), new Object[] {0});
+                            startAgent(nickname, agentClass, args);
                         }
 
                         @Override

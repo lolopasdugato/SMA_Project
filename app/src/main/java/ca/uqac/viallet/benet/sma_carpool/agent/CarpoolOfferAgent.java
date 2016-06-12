@@ -104,18 +104,27 @@ public class CarpoolOfferAgent extends Agent {
 
                 ACLMessage reply = msg.createReply();
 
-               /* Integer price = (Integer) offers.get(title);
-                if (price != null) {
+                Trip bestOffer = null;
+                float bestDetour = Float.MAX_VALUE;
+                for (Trip offer : offers) {
+                    float detour = offer.detourLength(departure, arrival);
+                    if (detour <= offer.getDetour() && detour < bestDetour) {
+                        bestOffer = offer;
+                        bestDetour = detour;
+                    }
+                }
+
+                if (bestOffer != null) {
                     // The requested book is available for sale. Reply with the price
                     reply.setPerformative(ACLMessage.PROPOSE);
-                    reply.setContent(String.valueOf(price.intValue()));
+                    reply.setContent("");
                 }
                 else {
                     // The requested book is NOT available for sale.
                     reply.setPerformative(ACLMessage.REFUSE);
                     reply.setContent("not-available");
                 }
-                myAgent.send(reply);*/
+                myAgent.send(reply);
             }
             else {
                 block();

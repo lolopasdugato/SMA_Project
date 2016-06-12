@@ -8,6 +8,10 @@ public class Trip {
 
     private float detour;
 
+    public float getDetour() {
+        return detour;
+    }
+
     public Trip(Coordinate dep, Coordinate arr) {
         route = new ArrayList<Coordinate>();
         route.add(dep);
@@ -46,7 +50,7 @@ public class Trip {
     }
 
     public float detourLength(Coordinate coord1, Coordinate coord2) {
-        float min_length = routeLength() * detour;
+        float min_length = routeLength() * detour /100;
         int min_i = 0;
         int min_j = 0;
         ArrayList<Coordinate> routeCopy = new ArrayList<Coordinate>(route);
@@ -69,5 +73,30 @@ public class Trip {
             }
         }
         return (min_length);
+    }
+
+    public boolean detourAcceptable(Coordinate coord1, Coordinate coord2) {
+        float min_length = routeLength() * detour/100;
+
+        ArrayList<Coordinate> routeCopy = new ArrayList<Coordinate>(route);
+
+        for (int i = 1; i < route.size(); i++) {
+            routeCopy.add(i, coord1);
+            for (int j = i + 1; j < routeCopy.size(); j++) {
+                routeCopy.add(j, coord2);
+
+                float length = 0;
+                for (int k = 0; i < route.size(); i++) {
+                    length += route.get(i).distance(route.get(i+1));
+                }
+
+                if (length <= min_length) {
+                    return true;
+                }
+                routeCopy.remove(i);
+                routeCopy.remove(j);
+            }
+        }
+        return false;
     }
 }
