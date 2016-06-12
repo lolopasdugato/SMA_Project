@@ -17,6 +17,8 @@ import android.widget.TextView;
 import java.util.Vector;
 
 import ca.uqac.viallet.benet.sma_carpool.R;
+import ca.uqac.viallet.benet.sma_carpool.agent.CarpoolFindAgent;
+import ca.uqac.viallet.benet.sma_carpool.container.Container;
 
 public class RideActivity extends AppCompatActivity {
 
@@ -106,6 +108,8 @@ public class RideActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (step == 3) {
                     if(MainMenu.SEARCHING) {
+                        Container.getInstance().startAgent("search", CarpoolFindAgent.class.getName()
+                                , new Object[] {arrival_coord.get(0),arrival_coord.get(1), departure_coord.get(0),departure_coord.get(1)});
                         Intent myIntent = new Intent(RideActivity.this, SearchResultActivity.class);
                         startActivity(myIntent);
                     } else {

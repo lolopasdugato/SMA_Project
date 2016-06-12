@@ -92,15 +92,19 @@ public class CarpoolOfferAgent extends Agent {
      sent back.
      */
     private class OfferRequestsServer extends CyclicBehaviour {
-        public void action() {/*
+        public void action() {
             MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.CFP);
             ACLMessage msg = myAgent.receive(mt);
             if (msg != null) {
                 // CFP Message received. Process it
-                String title = msg.getContent();
+                //String title = msg.getContent();
+                String[] trip = msg.getContent().split(" ");
+                Coordinate departure = new Coordinate(trip[0]);
+                Coordinate arrival = new Coordinate(trip[1]);
+
                 ACLMessage reply = msg.createReply();
 
-       //         Integer price = (Integer) offers.get(title);
+                Integer price = (Integer) offers.get(title);
                 if (price != null) {
                     // The requested book is available for sale. Reply with the price
                     reply.setPerformative(ACLMessage.PROPOSE);

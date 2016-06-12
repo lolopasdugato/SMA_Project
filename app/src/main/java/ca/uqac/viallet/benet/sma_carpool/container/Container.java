@@ -123,12 +123,10 @@ public class Container {
         }
     }
 
-    public void startAgent(final String nickname,
-                            final RuntimeCallback<AgentController> agentStartupCallback) {
+    public void startAgent(final String nickname, String agentClass, Object[] args) {
         microRuntimeServiceBinder.startAgent(nickname,
-                CarpoolFindAgent.class.getName(),
-               /* new Object[] { getApplicationContext() }*/
-                new Object[] {0,0,5,5},
+                agentClass,
+                args,
                 new RuntimeCallback<Void>() {
                     @Override
                     public void onSuccess(Void thisIsNull) {
@@ -151,6 +149,7 @@ public class Container {
                     }
                 });
     }
+
 
     private RuntimeCallback<AgentController> agentStartupCallback = new RuntimeCallback<AgentController>() {
         @Override
