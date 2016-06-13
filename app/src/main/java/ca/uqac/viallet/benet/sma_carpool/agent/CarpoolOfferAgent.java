@@ -82,11 +82,9 @@ public class CarpoolOfferAgent extends Agent {
      */
     private class OfferRequestsServer extends CyclicBehaviour {
         public void action() {
-            Log.i("OFFAG", "Coucou");
             MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.CFP);
             ACLMessage msg = myAgent.receive(mt);
             if (msg != null) {
-                Log.i("OFFAG", "Oucouc");
                 // CFP Message received. Process it
                 //String title = msg.getContent();
                 String[] tripSearch = msg.getContent().split(" ");
@@ -99,7 +97,6 @@ public class CarpoolOfferAgent extends Agent {
                 if (detour-100 <= trip.getDetour()) {
                     // The requested trip is available
                     reply.setPerformative(ACLMessage.PROPOSE);
-                    Log.i("OFFAG", "MSG content :" + trip.toString());
                     reply.setContent(trip.toString());
                 }
                 else {
