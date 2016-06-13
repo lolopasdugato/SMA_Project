@@ -32,19 +32,9 @@
     <Button
         android:layout_width="200dp"
         android:layout_height="50dp"
-        android:text="@string/accepter"
-        android:id="@+id/accept_button"
-        android:background="#b3ee99"
-        android:layout_below="@+id/search_result"
-        android:layout_toEndOf="@+id/titleSRA"
-        android:layout_marginRight="5dp" />
-
-    <Button
-        android:layout_width="200dp"
-        android:layout_height="50dp"
         android:text="@string/mes_recherches"
         android:id="@+id/myResearch"
-        android:layout_alignTop="@+id/accept_button"
-        android:layout_toStartOf="@+id/titleSRA"
-        android:layout_marginRight="5dp" />
+        android:layout_marginTop="62dp"
+        android:layout_below="@+id/search_result"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

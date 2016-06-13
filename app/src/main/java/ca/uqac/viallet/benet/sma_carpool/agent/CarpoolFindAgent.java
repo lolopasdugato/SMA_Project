@@ -3,9 +3,11 @@ package ca.uqac.viallet.benet.sma_carpool.agent;
 import android.graphics.Point;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import ca.uqac.viallet.benet.sma_carpool.gui.MainMenu;
+import ca.uqac.viallet.benet.sma_carpool.gui.SearchResultActivity;
 import ca.uqac.viallet.benet.sma_carpool.utils.Coordinate;
 import ca.uqac.viallet.benet.sma_carpool.utils.Trip;
 import jade.core.AID;
@@ -29,6 +31,16 @@ public class CarpoolFindAgent extends Agent {
 
     // The list of known carpool offer agents
     private AID[] offerAgents;
+    protected ArrayList<AID> interestedOfferAgents = new ArrayList<>();
+    protected AID selectedOfferAgent;
+
+    public ArrayList<AID> getInterestedOfferAgents() {
+        return interestedOfferAgents;
+    }
+
+    public AID getSelectedOfferAgent() {
+        return selectedOfferAgent;
+    }
 
     @Override
     public String toString() {
@@ -40,6 +52,7 @@ public class CarpoolFindAgent extends Agent {
     // Agent initialization
     protected void setup() {
         Log.i("FINDAG", "Find-agent "+getAID().getName()+" is ready.");
+        SearchResultActivity.agentToFollow = this;
         // Get the coordinates as a start-up argument
         Object[] args = getArguments();
         if (args != null && args.length == 4) {
@@ -51,7 +64,7 @@ public class CarpoolFindAgent extends Agent {
             Log.i("FINDAG", "Trip : " + trip.toString());
 
             // Add a TickerBehaviour that schedules a request to agents every minute
-            addBehaviour(new TickerBehaviour(this, 60000) {
+            addBehaviour(new TickerBehaviour(this, 10000) {
                 protected void onTick() {
                     // Update the list of seller agents
                     Log.i("FINDAG", "Trying to find a carpool");
@@ -103,6 +116,7 @@ public class CarpoolFindAgent extends Agent {
         public void action() {
             switch (step) {
                 case 0:
+                    interestedOfferAgents.clear();
                     // Send the cfp to all sellers
                     ACLMessage cfp = new ACLMessage(ACLMessage.CFP);
                     for (int i = 0; i < offerAgents.length; ++i) {
@@ -124,6 +138,7 @@ public class CarpoolFindAgent extends Agent {
                         // Reply received
                         if (reply.getPerformative() == ACLMessage.PROPOSE) {
                             // This is an offer
+                            interestedOfferAgents.add(reply.getSender());
                             int price = Integer.parseInt(reply.getContent());
                             if (bestOffer == null || price < bestPrice) {
                                 // This is the best offer at present
@@ -160,8 +175,9 @@ public class CarpoolFindAgent extends Agent {
                     if (reply != null) {
                         // Purchase order reply received
                         if (reply.getPerformative() == ACLMessage.INFORM) {
+                            selectedOfferAgent = reply.getSender();
                             // Purchase successful. We can terminate
-                            myAgent.doDelete();
+                            // myAgent.doDelete();
                         }
                         else {
                             System.out.println("Attempt failed: refused offer.");
