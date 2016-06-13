@@ -113,6 +113,10 @@ public class RideActivity extends AppCompatActivity {
                         startActivity(myIntent);
                     } else {
                         Intent myIntent = new Intent(RideActivity.this, ProposalRestrictionActivity.class);
+                        myIntent.putExtra("departure_x", departure_coord.x);
+                        myIntent.putExtra("departure_y", departure_coord.y);
+                        myIntent.putExtra("arrival_x", arrival_coord.x);
+                        myIntent.putExtra("arrival_y", arrival_coord.y);
                         startActivity(myIntent);
                     }
                 }

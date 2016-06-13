@@ -7,6 +7,7 @@ public class Trip {
     private ArrayList<Coordinate> route;
 
     private float detour;
+    private float price;
 
     public float getDetour() {
         return detour;
@@ -17,13 +18,15 @@ public class Trip {
         route.add(dep);
         route.add(arr);
         detour = 0;
+        price = 0;
     }
 
-    public Trip(Coordinate dep, Coordinate arr, float detour) {
+    public Trip(Coordinate dep, Coordinate arr, float detour, float price) {
         route = new ArrayList<Coordinate>();
         route.add(dep);
         route.add(arr);
         this.detour = detour;
+        this.price = price;
     }
 
     public Trip(Trip trip) {

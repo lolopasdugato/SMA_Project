@@ -2,9 +2,7 @@ package ca.uqac.viallet.benet.sma_carpool.agent;
 
 import android.graphics.Point;
 import android.util.Log;
-
 import java.util.Arrays;
-
 import ca.uqac.viallet.benet.sma_carpool.gui.MainMenu;
 import ca.uqac.viallet.benet.sma_carpool.utils.Coordinate;
 import ca.uqac.viallet.benet.sma_carpool.utils.Trip;

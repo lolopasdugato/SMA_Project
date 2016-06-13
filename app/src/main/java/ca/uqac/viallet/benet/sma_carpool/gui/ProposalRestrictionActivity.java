@@ -11,11 +11,15 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import ca.uqac.viallet.benet.sma_carpool.R;
+import ca.uqac.viallet.benet.sma_carpool.agent.CarpoolFindAgent;
+import ca.uqac.viallet.benet.sma_carpool.agent.CarpoolOfferAgent;
+import ca.uqac.viallet.benet.sma_carpool.container.Container;
+import ca.uqac.viallet.benet.sma_carpool.utils.Coordinate;
 
 public class ProposalRestrictionActivity extends AppCompatActivity {
 
-    public static double PRICE = 0;
-    public static double DEVIATION = 0;
+    public static float PRICE = 0;
+    public static float DEVIATION = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +45,21 @@ public class ProposalRestrictionActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String price = ((EditText) findViewById(R.id.price)).getText().toString();
                 String deviation = ((EditText) findViewById(R.id.deviation)).getText().toString();
-                PRICE = Double.parseDouble(price);
-                DEVIATION = Double.parseDouble(deviation);
-                Intent myIntent = new Intent(ProposalRestrictionActivity.this, ProposalCheckActivity.class);
-                startActivity(myIntent);
+                PRICE = Float.parseFloat(price);
+                DEVIATION = Float.parseFloat(deviation);
+                Bundle extras = getIntent().getExtras();
+                if (extras != null) {
+                    Coordinate departure_coord = new Coordinate(extras.getInt("departure_x"),
+                            extras.getInt("departure_y"));
+                    Coordinate arrival_coord = new Coordinate(extras.getInt("arrival_x"),
+                            extras.getInt("arrival_y"));
+                    Container.getInstance().startCarpool("offer" + MainMenu.offerAgents.size(), CarpoolOfferAgent.class.getName(),
+                            new Object[] {departure_coord.x,departure_coord.y, arrival_coord.x,arrival_coord.y, DEVIATION, PRICE},
+                            MainMenu.MainMenuLink);
+                    Intent myIntent = new Intent(ProposalRestrictionActivity.this, ProposalCheckActivity.class);
+                    startActivity(myIntent);
+                }
+
                 //TODO: Add proposal to the pool
             }
         });

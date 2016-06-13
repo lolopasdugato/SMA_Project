@@ -2,63 +2,60 @@ package ca.uqac.viallet.benet.sma_carpool.agent;
 
 import android.util.Log;
 
-import java.util.ArrayList;
-import java.util.Hashtable;
-
 import ca.uqac.viallet.benet.sma_carpool.gui.MainMenu;
 import ca.uqac.viallet.benet.sma_carpool.utils.Coordinate;
 import ca.uqac.viallet.benet.sma_carpool.utils.Trip;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
-import jade.core.behaviours.OneShotBehaviour;
 import jade.domain.DFService;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.domain.FIPAException;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
+import jade.util.Logger;
 
 public class CarpoolOfferAgent extends Agent {
 
-    // Desired route
-    private Coordinate departure;
-    private Coordinate arrival;
+    private Logger logger = Logger.getJADELogger(this.getClass().getName());
 
-    // The additional distance accepted by the driver
-    private float detour;
-
-    // The trips that the driver offers
-    private ArrayList<Trip> offers;
+    // Proposed route
+    private Trip trip;
 
     // The GUI by means of which the user can add books in the catalogue
     //private BookSellerGui myGui;
 
     // Agent initialization
     protected void setup() {
-        // Create the catalogue
-        offers = new ArrayList<Trip>();
+        Log.i("OFFDAG", "Offer-agent "+getAID().getName()+" is ready.");
+        // Get the coordinates as a start-up argument
+        Object[] args = getArguments();
+        if (args != null && args.length == 6) {
+            trip = new Trip(new Coordinate((int) args[0], (int) args[1]),
+                    new Coordinate((int) args[2], (int) args[3]),
+                    (float) args[4], (float) args[5]);
 
-        MainMenu.offerAgent = this;
+            MainMenu.offerAgents.add(this);
 
-        // Register the book-selling service in the yellow pages
-        DFAgentDescription dfd = new DFAgentDescription();
-        dfd.setName(this.getAID());
-        ServiceDescription sd = new ServiceDescription();
-        sd.setType("carpool-offering");
-        sd.setName("JADE-carpool");
-        dfd.addServices(sd);
-        try {
-            DFService.register(this, dfd);
+            // Register the carpool service in the yellow pages
+            DFAgentDescription dfd = new DFAgentDescription();
+            dfd.setName(this.getAID());
+            ServiceDescription sd = new ServiceDescription();
+            sd.setType("carpool-offering");
+            sd.setName("JADE-carpool");
+            dfd.addServices(sd);
+            try {
+                DFService.register(this, dfd);
+            } catch (FIPAException fe) {
+                fe.printStackTrace();
+            }
+
+            // Add the behaviour serving queries from agents
+            addBehaviour(new OfferRequestsServer());
+
+            // Add the behaviour serving booking orders from agents
+            addBehaviour(new BookOrdersServer());
         }
-        catch (FIPAException fe) {
-            fe.printStackTrace();
-        }
-
-        // Add the behaviour serving queries from agents
-        addBehaviour(new OfferRequestsServer());
-
-        // Add the behaviour serving booking orders from agents
-        addBehaviour(new BookOrdersServer());
     }
 
     // Put agent clean-up operations here
@@ -74,17 +71,6 @@ public class CarpoolOfferAgent extends Agent {
         Log.i("OFFERAG","Seller-agent "+getAID().getName()+" terminating.");
     }
 
-    /**
-     This is invoked by the GUI when the user offers a new trip
-     */
-    public void updateCatalogue(final Trip trip) {
-        addBehaviour(new OneShotBehaviour() {
-            public void action() {
-                offers.add(trip);
-                Log.i("OFFERAG",trip.toString()+" inserted into catalogue. %detour = "+detour);
-            }
-        } );
-    }
 
     /**
      Inner class OfferRequestsServer.
@@ -96,31 +82,22 @@ public class CarpoolOfferAgent extends Agent {
      */
     private class OfferRequestsServer extends CyclicBehaviour {
         public void action() {
-            MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.CFP);
+/*            MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.CFP);
             ACLMessage msg = myAgent.receive(mt);
             if (msg != null) {
                 // CFP Message received. Process it
                 //String title = msg.getContent();
-                String[] trip = msg.getContent().split(" ");
-                Coordinate departure = new Coordinate(trip[0]);
-                Coordinate arrival = new Coordinate(trip[1]);
+                String[] tripSearch = msg.getContent().split(" ");
+                Coordinate departure = new Coordinate(tripSearch[0]);
+                Coordinate arrival = new Coordinate(tripSearch[1]);
 
                 ACLMessage reply = msg.createReply();
 
-                Trip bestOffer = null;
-                float bestDetour = Float.MAX_VALUE;
-                for (Trip offer : offers) {
-                    float detour = offer.detourLength(departure, arrival);
-                    if (detour <= offer.getDetour() && detour < bestDetour) {
-                        bestOffer = offer;
-                        bestDetour = detour;
-                    }
-                }
-
-                if (bestOffer != null) {
-                    // The requested book is available for sale. Reply with the price
+                float detour = trip.detourLength(departure, arrival);
+                if (detour <= trip.getDetour()) {
+                    // The requested trip is available
                     reply.setPerformative(ACLMessage.PROPOSE);
-                    reply.setContent("");
+                    reply.setContent(trip.toString());
                 }
                 else {
                     // The requested book is NOT available for sale.
@@ -131,7 +108,7 @@ public class CarpoolOfferAgent extends Agent {
             }
             else {
                 block();
-            }
+            }*/
         }
     }  // End of inner class OfferRequestsServer
 

@@ -1,12 +1,7 @@
 package ca.uqac.viallet.benet.sma_carpool.gui;
 
 import android.annotation.SuppressLint;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
-import android.content.SharedPreferences;
-import android.os.IBinder;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,14 +16,7 @@ import ca.uqac.viallet.benet.sma_carpool.R;
 import ca.uqac.viallet.benet.sma_carpool.agent.CarpoolFindAgent;
 import ca.uqac.viallet.benet.sma_carpool.agent.CarpoolOfferAgent;
 import ca.uqac.viallet.benet.sma_carpool.container.Container;
-import jade.android.AndroidHelper;
-import jade.android.MicroRuntimeService;
-import jade.android.MicroRuntimeServiceBinder;
-import jade.android.RuntimeCallback;
-import jade.core.MicroRuntime;
-import jade.core.Profile;
 import jade.util.Logger;
-import jade.util.leap.Properties;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -51,7 +39,7 @@ public class  MainMenu extends AppCompatActivity {
 
     // agent list
     public static ArrayList<CarpoolFindAgent> findAgents = new ArrayList<CarpoolFindAgent>();
-    public static CarpoolOfferAgent offerAgent;
+    public static ArrayList<CarpoolOfferAgent> offerAgents = new ArrayList<CarpoolOfferAgent>();
 
     public static MainMenu MainMenuLink;
 
@@ -166,9 +154,9 @@ public class  MainMenu extends AppCompatActivity {
                     "jadeCarpoolPrefsFile", 0);
             String host = settings.getString("defaultHost", "");
             String port = settings.getString("defaultPort", "");*/
-            Container container = Container.getInstance();
+            //Container container = Container.getInstance();
             // container.startCarpool("find", CarpoolFindAgent.class.getName(), new Object[] {0,1,2,3}, this);
-            container.startCarpool("offer", CarpoolOfferAgent.class.getName(), new Object[] {}, this);
+            //container.startCarpool("offer", CarpoolOfferAgent.class.getName(), new Object[] {}, this);
         } catch (Exception ex) {
             logger.log(Level.SEVERE, "Unexpected exception creating chat agent!");
         }
