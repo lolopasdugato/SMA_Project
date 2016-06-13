@@ -86,6 +86,7 @@ public class CarpoolOfferAgent extends Agent {
             MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.CFP);
             ACLMessage msg = myAgent.receive(mt);
             if (msg != null) {
+                Log.i("OFFAG", "Oucouc");
                 // CFP Message received. Process it
                 //String title = msg.getContent();
                 String[] tripSearch = msg.getContent().split(" ");
@@ -95,10 +96,10 @@ public class CarpoolOfferAgent extends Agent {
                 ACLMessage reply = msg.createReply();
 
                 float detour = trip.detourLength(departure, arrival)/trip.routeLength()*100;
-                Log.i("OFFAG", "Deviation :" + detour);
                 if (detour-100 <= trip.getDetour()) {
                     // The requested trip is available
                     reply.setPerformative(ACLMessage.PROPOSE);
+                    Log.i("OFFAG", "MSG content :" + trip.toString());
                     reply.setContent(trip.toString());
                 }
                 else {
@@ -124,9 +125,9 @@ public class CarpoolOfferAgent extends Agent {
      */
     private class BookOrdersServer extends CyclicBehaviour {
         public void action() {
-        /*    MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.ACCEPT_PROPOSAL);
+            MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.ACCEPT_PROPOSAL);
             ACLMessage msg = myAgent.receive(mt);
-            if (msg != null) {
+            if (msg != null) {/*
                 // ACCEPT_PROPOSAL Message received. Process it
                 String title = msg.getContent();
                 ACLMessage reply = msg.createReply();
@@ -141,11 +142,11 @@ public class CarpoolOfferAgent extends Agent {
                     reply.setPerformative(ACLMessage.FAILURE);
                     reply.setContent("not-available");
                 }
-                myAgent.send(reply);
+                myAgent.send(reply);*/
             }
             else {
                 block();
-            } */
+            }
         }
     }  // End of inner class OfferRequestsServer
 }

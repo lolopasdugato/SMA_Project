@@ -62,7 +62,6 @@ public class Container {
         //    if (AndroidHelper.isEmulator()) {
         // Emulator: this is needed to work with emulated devices
         profile.setProperty(Profile.LOCAL_HOST, AndroidHelper.LOOPBACK);
-        logger.log(Level.INFO,AndroidHelper.LOOPBACK);
       /*  } else {
             profile.setProperty(Profile.LOCAL_HOST,
                     AndroidHelper.getLocalIPAddress());

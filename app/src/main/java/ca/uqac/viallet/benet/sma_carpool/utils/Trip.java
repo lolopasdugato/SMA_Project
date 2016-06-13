@@ -41,6 +41,9 @@ public class Trip {
             routeStr.append(' ');
         }
         routeStr.deleteCharAt(routeStr.length()-1);
+        if (price != 0) {
+            routeStr.append(" "+price);
+        }
         return routeStr.toString();
     }
 
@@ -53,7 +56,7 @@ public class Trip {
     }
 
     public float detourLength(Coordinate coord1, Coordinate coord2) {
-        float min_length = Float.MIN_VALUE;
+        float min_length = Float.MAX_VALUE;
         int min_i = 0;
         int min_j = 0;
         ArrayList<Coordinate> routeCopy = new ArrayList<Coordinate>(route);
@@ -73,7 +76,9 @@ public class Trip {
                     min_i = i;
                     min_j = j;
                 }
+                routeCopy.remove(j);
             }
+            routeCopy.remove(i);
         }
         return (min_length);
     }
@@ -96,8 +101,6 @@ public class Trip {
                 if (length <= min_length) {
                     return true;
                 }
-                routeCopy.remove(i);
-                routeCopy.remove(j);
             }
         }
         return false;

@@ -107,7 +107,7 @@ public class CarpoolFindAgent extends Agent {
      */
     private class RequestPerformer extends Behaviour {
         private AID bestOffer; // The agent who provides the best offer
-        private int bestPrice;  // The best offered price
+        private float bestPrice;  // The best offered price
         private int repliesCnt = 0; // The counter of replies from seller agents
         private MessageTemplate mt; // The template to receive replies
         private int step = 0;
@@ -138,7 +138,8 @@ public class CarpoolFindAgent extends Agent {
                         if (reply.getPerformative() == ACLMessage.PROPOSE) {
                             // This is an offer
                             interestedOfferAgents.add(reply.getSender());
-                            int price = Integer.parseInt(reply.getContent());
+                            String[] msg = reply.getContent().split(" ");
+                            float price = Float.parseFloat(msg[msg.length-1]);
                             if (bestOffer == null || price < bestPrice) {
                                 // This is the best offer at present
                                 bestPrice = price;
