@@ -82,7 +82,8 @@ public class CarpoolOfferAgent extends Agent {
      */
     private class OfferRequestsServer extends CyclicBehaviour {
         public void action() {
-/*            MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.CFP);
+            Log.i("OFFAG", "Coucou");
+            MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.CFP);
             ACLMessage msg = myAgent.receive(mt);
             if (msg != null) {
                 // CFP Message received. Process it
@@ -93,8 +94,9 @@ public class CarpoolOfferAgent extends Agent {
 
                 ACLMessage reply = msg.createReply();
 
-                float detour = trip.detourLength(departure, arrival);
-                if (detour <= trip.getDetour()) {
+                float detour = trip.detourLength(departure, arrival)/trip.routeLength()*100;
+                Log.i("OFFAG", "Deviation :" + detour);
+                if (detour-100 <= trip.getDetour()) {
                     // The requested trip is available
                     reply.setPerformative(ACLMessage.PROPOSE);
                     reply.setContent(trip.toString());
@@ -108,7 +110,7 @@ public class CarpoolOfferAgent extends Agent {
             }
             else {
                 block();
-            }*/
+            }
         }
     }  // End of inner class OfferRequestsServer
 

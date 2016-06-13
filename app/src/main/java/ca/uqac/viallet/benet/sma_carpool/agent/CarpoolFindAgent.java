@@ -62,13 +62,14 @@ public class CarpoolFindAgent extends Agent {
             Log.i("FINDAG", "Trip : " + trip.toString());
 
             // Add a TickerBehaviour that schedules a request to agents every minute
-            addBehaviour(new TickerBehaviour(this, 10000) {
+            addBehaviour(new TickerBehaviour(this, 1000) {
                 protected void onTick() {
                     // Update the list of seller agents
                     Log.i("FINDAG", "Trying to find a carpool");
                     DFAgentDescription template = new DFAgentDescription();
                     ServiceDescription sd = new ServiceDescription();
                     sd.setType("carpool-offering");
+                    sd.setName("JADE-carpool");
                     template.addServices(sd);
                     try {
                         DFAgentDescription[] result = DFService.search(myAgent, template);
@@ -122,7 +123,7 @@ public class CarpoolFindAgent extends Agent {
                     }
                     cfp.setContent(trip.toString());
                     cfp.setConversationId("carpool-proposal");
-                    cfp.setReplyWith("cfp"+System.currentTimeMillis()); // Unique value
+                    cfp.setReplyWith("cfp"+System.currentTimeMillis()); // Unique value*/
                     myAgent.send(cfp);
                     // Prepare the template to get proposals
                     mt = MessageTemplate.and(MessageTemplate.MatchConversationId("carpool-proposal"),

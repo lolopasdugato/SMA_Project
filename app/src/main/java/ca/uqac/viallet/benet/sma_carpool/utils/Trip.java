@@ -53,19 +53,19 @@ public class Trip {
     }
 
     public float detourLength(Coordinate coord1, Coordinate coord2) {
-        float min_length = routeLength() * (detour+100)/100;
+        float min_length = Float.MIN_VALUE;
         int min_i = 0;
         int min_j = 0;
         ArrayList<Coordinate> routeCopy = new ArrayList<Coordinate>(route);
 
-        for (int i = 1; i < route.size(); i++) {
+        for (int i = 1; i < routeCopy.size(); i++) {
             routeCopy.add(i, coord1);
             for (int j = i + 1; j < routeCopy.size(); j++) {
                 routeCopy.add(j, coord2);
 
                 float length = 0;
-                for (int k = 0; i < route.size(); i++) {
-                    length += route.get(i).distance(route.get(i+1));
+                for (int k = 0; k < routeCopy.size()-1; k++) {
+                    length += routeCopy.get(k).distance(routeCopy.get(k+1));
                 }
 
                 if (length <= min_length) {
