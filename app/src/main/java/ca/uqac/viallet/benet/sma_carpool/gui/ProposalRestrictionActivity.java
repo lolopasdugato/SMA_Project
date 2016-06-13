@@ -59,8 +59,6 @@ public class ProposalRestrictionActivity extends AppCompatActivity {
                     Intent myIntent = new Intent(ProposalRestrictionActivity.this, ProposalCheckActivity.class);
                     startActivity(myIntent);
                 }
-
-                //TODO: Add proposal to the pool
             }
         });
     }

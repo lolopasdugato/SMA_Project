@@ -59,13 +59,9 @@ public class Container {
         profile.setProperty(Profile.MAIN, Boolean.FALSE.toString());
         profile.setProperty(Profile.JVM, Profile.ANDROID);
 
-        //    if (AndroidHelper.isEmulator()) {
         // Emulator: this is needed to work with emulated devices
         profile.setProperty(Profile.LOCAL_HOST, AndroidHelper.LOOPBACK);
-      /*  } else {
-            profile.setProperty(Profile.LOCAL_HOST,
-                    AndroidHelper.getLocalIPAddress());
-        }*/
+
         // Emulator: this is not really needed on a real device
         profile.setProperty(Profile.LOCAL_PORT, "2000");
 
@@ -103,7 +99,6 @@ public class Container {
                     @Override
                     public void onFailure(Throwable throwable) {
                         logger.log(Level.SEVERE, "Failed to stop the agents");
-                        //agentStartupCallback.onFailure(throwable);
                     }
                 });
     }

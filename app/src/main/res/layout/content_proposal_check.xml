@@ -23,18 +23,9 @@
 
     <GridView
         android:layout_width="fill_parent"
-        android:layout_height="200dp"
+        android:layout_height="fill_parent"
         android:id="@+id/proposals"
         android:layout_below="@+id/proposalCheckTitle"
         android:layout_centerHorizontal="true" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/accepter"
-        android:id="@+id/accept_button"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="111dp"
-        android:background="#9cec81" />
 </RelativeLayout>

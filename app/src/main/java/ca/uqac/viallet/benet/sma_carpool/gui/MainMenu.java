@@ -147,19 +147,6 @@ public class  MainMenu extends AppCompatActivity {
                 startActivity(myIntent);
             }
         });
-
-        // Start jade environment
-        try {
-           /* SharedPreferences settings = getSharedPreferences(
-                    "jadeCarpoolPrefsFile", 0);
-            String host = settings.getString("defaultHost", "");
-            String port = settings.getString("defaultPort", "");*/
-            //Container container = Container.getInstance();
-            // container.startCarpool("find", CarpoolFindAgent.class.getName(), new Object[] {0,1,2,3}, this);
-            //container.startCarpool("offer", CarpoolOfferAgent.class.getName(), new Object[] {}, this);
-        } catch (Exception ex) {
-            logger.log(Level.SEVERE, "Unexpected exception creating chat agent!");
-        }
     }
 
     @Override

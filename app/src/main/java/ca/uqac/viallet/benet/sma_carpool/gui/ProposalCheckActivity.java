@@ -6,11 +6,19 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.GridView;
+
+import java.util.ArrayList;
 
 import ca.uqac.viallet.benet.sma_carpool.R;
+import jade.core.AID;
+import jade.core.Agent;
 
 public class ProposalCheckActivity extends AppCompatActivity {
+
+    private ArrayList<String> results = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,15 +36,17 @@ public class ProposalCheckActivity extends AppCompatActivity {
             }
         });
 
-        Button acceptButton = (Button) findViewById(R.id.accept_button);
-        assert acceptButton != null;
-        acceptButton.setOnClickListener(new View.OnClickListener() {
+        for (Agent agent : MainMenu.offerAgents) {
+            results.add(agent.toString());
+        }
 
-            @Override
-            public void onClick(View v) {
-                //TODO: accept a responded proposal
-            }
-        });
+        final GridView gridView = (GridView) findViewById(R.id.proposals);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, results);
+
+        assert gridView != null;
+        gridView.setAdapter(adapter);
     }
 
 }

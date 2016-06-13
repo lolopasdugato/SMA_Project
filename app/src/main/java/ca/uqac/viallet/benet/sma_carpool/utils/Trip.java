@@ -29,11 +29,6 @@ public class Trip {
         this.price = price;
     }
 
-    public Trip(Trip trip) {
-        route = new ArrayList<Coordinate>(trip.route);
-
-    }
-
     public String toString() {
         StringBuilder routeStr = new StringBuilder();
         for (Coordinate coord : route) {
@@ -81,28 +76,5 @@ public class Trip {
             routeCopy.remove(i);
         }
         return (min_length);
-    }
-
-    public boolean detourAcceptable(Coordinate coord1, Coordinate coord2) {
-        float min_length = routeLength() * (detour+100)/100;
-
-        ArrayList<Coordinate> routeCopy = new ArrayList<Coordinate>(route);
-
-        for (int i = 1; i < route.size(); i++) {
-            routeCopy.add(i, coord1);
-            for (int j = i + 1; j < routeCopy.size(); j++) {
-                routeCopy.add(j, coord2);
-
-                float length = 0;
-                for (int k = 0; i < route.size(); i++) {
-                    length += route.get(i).distance(route.get(i+1));
-                }
-
-                if (length <= min_length) {
-                    return true;
-                }
-            }
-        }
-        return false;
     }
 }

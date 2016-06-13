@@ -40,7 +40,6 @@ public class MyResearchActivity extends AppCompatActivity {
         for (CarpoolFindAgent fAgent : MainMenu.findAgents) {
             researches.add(fAgent.toString());
         }
-        Log.i("MyResearchActivity", "researches size: " + researches.size());
 
         final GridView gridView = (GridView) findViewById(R.id.researchesGrid);
 

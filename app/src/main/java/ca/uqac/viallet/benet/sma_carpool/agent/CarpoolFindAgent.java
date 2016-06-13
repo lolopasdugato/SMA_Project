@@ -1,9 +1,7 @@
 package ca.uqac.viallet.benet.sma_carpool.agent;
 
-import android.graphics.Point;
 import android.util.Log;
 import java.util.ArrayList;
-import java.util.Arrays;
 import ca.uqac.viallet.benet.sma_carpool.gui.MainMenu;
 import ca.uqac.viallet.benet.sma_carpool.gui.SearchResultActivity;
 import ca.uqac.viallet.benet.sma_carpool.utils.Coordinate;
@@ -43,7 +41,8 @@ public class CarpoolFindAgent extends Agent {
     @Override
     public String toString() {
         return "CarpoolFindAgent{" +
-                "trip=" + trip +
+                getLocalName() +
+                " trip=" + trip +
                 '}';
     }
 
@@ -144,6 +143,7 @@ public class CarpoolFindAgent extends Agent {
                                 // This is the best offer at present
                                 bestPrice = price;
                                 bestOffer = reply.getSender();
+                                selectedOfferAgent = reply.getSender();
                             }
                         }
                         repliesCnt++;

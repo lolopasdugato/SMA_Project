@@ -63,9 +63,6 @@ public class RideActivity extends AppCompatActivity {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
-                /* Toast.makeText(getApplicationContext(),
-                        ((TextView) v).getText(), Toast.LENGTH_SHORT).show();
-                */
                 // récupération des information de l'endroit selectionné
                 int i = position / gridView.getNumColumns();
                 int j = position % gridView.getNumColumns();

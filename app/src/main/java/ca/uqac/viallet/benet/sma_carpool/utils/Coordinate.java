@@ -14,7 +14,6 @@ public class Coordinate {
     }
 
     public Coordinate (String s) {
-        int num = 0;
         String[] values = s.split(",");
         this.x = Integer.parseInt(values[0]);
         this.y = Integer.parseInt(values[1]);
