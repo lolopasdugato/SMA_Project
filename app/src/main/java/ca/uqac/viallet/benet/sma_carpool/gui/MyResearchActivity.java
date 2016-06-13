@@ -35,18 +35,8 @@ public class MyResearchActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.myResults).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //TODO: only if one item is selected
-                Intent myIntent = new Intent(MyResearchActivity.this, SearchResultActivity.class);
-                startActivity(myIntent);
-            }
-        });
-
         ArrayList<String> researches = new ArrayList<String>();
 
-        //TODO: fill researches
         for (CarpoolFindAgent fAgent : MainMenu.findAgents) {
             researches.add(fAgent.toString());
         }
@@ -63,7 +53,9 @@ public class MyResearchActivity extends AppCompatActivity {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                SearchResultActivity.agentToFollow = MainMenu.findAgents.get(position);
+                Intent myIntent = new Intent(MyResearchActivity.this, SearchResultActivity.class);
+                startActivity(myIntent);
             }
         });
     }
